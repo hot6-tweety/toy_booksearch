@@ -58,6 +58,9 @@ class SearchFragment : Fragment() {
         var startTime = System.currentTimeMillis()
         var endTime: Long
 
+        // SaveState 로 저장한 텍스트를 불러옴
+        binding.etSearch.text = Editable.Factory.getInstance().newEditable(bookSearchViewModel.query)
+
 
         binding.etSearch.addTextChangedListener { text: Editable? ->
             endTime = System.currentTimeMillis()

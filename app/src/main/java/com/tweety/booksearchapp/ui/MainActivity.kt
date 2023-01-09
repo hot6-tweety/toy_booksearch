@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val bookSearchRepository = BookSearchRepositoryImpl()
-        val factory = ViewModelFactory(bookSearchRepository)
+        val factory = ViewModelFactory(bookSearchRepository, this)
         bookSearchViewModel = ViewModelProvider(this, factory)[BookSearchViewModel::class.java]
     }
 

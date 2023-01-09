@@ -60,6 +60,7 @@ dependencies {
     // Lifecycle
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedsate:2.4.1'
 
     // Coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
@@ -70,7 +71,8 @@ dependencies {
 
     // RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    
+
+
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
