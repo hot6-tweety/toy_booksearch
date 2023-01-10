@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tweety.booksearchapp.common.Constants.SEARCH_BOOKS_TIME_DELAY
@@ -39,11 +40,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
-
     private fun setupRecycleView() {
         bookSearchAdapter = BookSearchAdapter()
         binding.rvSearchResult.apply {
@@ -51,6 +47,10 @@ class SearchFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             adapter = bookSearchAdapter
+        }
+        bookSearchAdapter.setOnItemClickListener {
+            val action = SearchFragmentDirections.actionNavigationSearchToNavigationBook(it)
+            findNavController().navigate(action)
         }
     }
 
@@ -75,5 +75,10 @@ class SearchFragment : Fragment() {
             }
             startTime = endTime
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

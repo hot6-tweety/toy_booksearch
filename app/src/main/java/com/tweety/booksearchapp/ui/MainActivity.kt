@@ -3,7 +3,11 @@ package com.tweety.booksearchapp.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tweety.booksearchapp.R
 import com.tweety.booksearchapp.data.repository.BookSearchRepositoryImpl
@@ -17,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
     lateinit var bookSearchViewModel: BookSearchViewModel
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +37,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigation() {
-        val navController = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment)?.findNavController()
+        val host = supportFragmentManager
+            .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment? ?: return
+        navController = host.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
 
-        navController?.let {
-            binding.bottomNavigationView.setupWithNavController(navController)
-        }
-
-
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_search, R.id.navigation_favorite, R.id.navigation_settings
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+
 }
