@@ -1,7 +1,7 @@
-package com.tweety.booksearchapp.data
+package com.tweety.booksearchapp.data.common
 
 import com.tweety.booksearchapp.common.Constants.API_KEY
-import com.tweety.booksearchapp.model.SearchResponse
+import com.tweety.booksearchapp.data.model.SearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers

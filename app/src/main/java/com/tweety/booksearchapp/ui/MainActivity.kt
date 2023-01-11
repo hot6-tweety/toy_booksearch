@@ -10,6 +10,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tweety.booksearchapp.R
+import com.tweety.booksearchapp.data.db.AppDatabase
 import com.tweety.booksearchapp.data.repository.BookSearchRepositoryImpl
 import com.tweety.booksearchapp.databinding.ActivityMainBinding
 import com.tweety.booksearchapp.ui.viewmodel.BookSearchViewModel
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavigation()
 
-        val bookSearchRepository = BookSearchRepositoryImpl()
+        val database = AppDatabase.getInstance(this)
+        val bookSearchRepository = BookSearchRepositoryImpl(database)
         val factory = ViewModelFactory(bookSearchRepository, this)
         bookSearchViewModel = ViewModelProvider(this, factory)[BookSearchViewModel::class.java]
     }

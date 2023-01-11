@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.tweety.booksearchapp.data.model.Book
 import com.tweety.booksearchapp.databinding.ItemBookPreviewBinding
-import com.tweety.booksearchapp.model.Book
 
 class BookSearchAdapter : ListAdapter<Book, BookSearchViewHolder>(BookDiffCallback) {
 

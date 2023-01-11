@@ -1,4 +1,4 @@
-package com.tweety.booksearchapp.model
+package com.tweety.booksearchapp.data.model
 
 
 import com.squareup.moshi.Json

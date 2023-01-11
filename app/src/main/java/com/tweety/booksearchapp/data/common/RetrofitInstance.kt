@@ -1,7 +1,6 @@
-package com.tweety.booksearchapp.common
+package com.tweety.booksearchapp.data.common
 
 import com.tweety.booksearchapp.common.Constants.BASE_URL
-import com.tweety.booksearchapp.data.BookSearchApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

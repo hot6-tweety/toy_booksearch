@@ -2,8 +2,8 @@ package com.tweety.booksearchapp.ui.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.tweety.booksearchapp.data.model.Book
 import com.tweety.booksearchapp.databinding.ItemBookPreviewBinding
-import com.tweety.booksearchapp.model.Book
 
 class BookSearchViewHolder(private val binding: ItemBookPreviewBinding) : RecyclerView.ViewHolder(binding.root) {
 

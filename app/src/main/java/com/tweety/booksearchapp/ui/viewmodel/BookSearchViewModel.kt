@@ -1,8 +1,10 @@
 package com.tweety.booksearchapp.ui.viewmodel
 
 import androidx.lifecycle.*
+import com.tweety.booksearchapp.data.model.Book
+import com.tweety.booksearchapp.data.model.SearchResponse
 import com.tweety.booksearchapp.data.repository.BookSearchRepository
-import com.tweety.booksearchapp.model.SearchResponse
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BookSearchViewModel(
@@ -22,6 +24,18 @@ class BookSearchViewModel(
             }
         }
     }
+
+    // Room
+    fun saveBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+        bookSearchRepository.insertBooks(book)
+    }
+
+    fun deleteBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+        bookSearchRepository.deleteBooks(book)
+    }
+
+    val favoriteBooks: LiveData<List<Book>> = bookSearchRepository.getFavoriteBooks()
+
 
     // SavedState
     var query = String()
