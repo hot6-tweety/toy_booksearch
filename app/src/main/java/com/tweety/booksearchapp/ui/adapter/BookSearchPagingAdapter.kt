@@ -3,11 +3,11 @@ package com.tweety.booksearchapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import com.tweety.booksearchapp.data.model.Book
 import com.tweety.booksearchapp.databinding.ItemBookPreviewBinding
+import com.tweety.booksearchapp.ui.common.BookDiffCallback
 
-class BookSearchPagingAdapter : PagingDataAdapter<Book, BookSearchViewHolder>(BookDiffCallback) {
+class BookSearchPagingAdapter : PagingDataAdapter<Book, BookSearchViewHolder>(BookDiffCallback()) {
 
     override fun onBindViewHolder(holder: BookSearchViewHolder, position: Int) {
         val pagedBook = getItem(position)
@@ -29,20 +29,6 @@ class BookSearchPagingAdapter : PagingDataAdapter<Book, BookSearchViewHolder>(Bo
 
     fun setOnItemClickListener(listener: (Book) -> Unit) {
         onItemClickListener = listener
-    }
-
-    companion object {
-        private val BookDiffCallback = object : DiffUtil.ItemCallback<Book>() {
-            override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
-                return oldItem.isbn == newItem.isbn
-            }
-
-            override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
-                return oldItem == newItem
-            }
-        }
-
-
     }
 
 

@@ -2,12 +2,12 @@ package com.tweety.booksearchapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.tweety.booksearchapp.data.model.Book
 import com.tweety.booksearchapp.databinding.ItemBookPreviewBinding
+import com.tweety.booksearchapp.ui.common.BookDiffCallback
 
-class BookSearchAdapter : ListAdapter<Book, BookSearchViewHolder>(BookDiffCallback) {
+class BookSearchAdapter : ListAdapter<Book, BookSearchViewHolder>(BookDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookSearchViewHolder {
         return BookSearchViewHolder(
@@ -27,19 +27,5 @@ class BookSearchAdapter : ListAdapter<Book, BookSearchViewHolder>(BookDiffCallba
 
     fun setOnItemClickListener(listener: (Book) -> Unit) {
         onItemClickListener = listener
-    }
-
-    companion object {
-        private val BookDiffCallback = object : DiffUtil.ItemCallback<Book>() {
-            override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
-                return oldItem.isbn == newItem.isbn
-            }
-
-            override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
-                return oldItem == newItem
-            }
-        }
-
-
     }
 }
