@@ -11,8 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tweety.booksearchapp.common.Constants.SEARCH_BOOKS_TIME_DELAY
+import com.tweety.booksearchapp.common.collectLatestStateFlow
 import com.tweety.booksearchapp.databinding.FragmentSearchBinding
-import com.tweety.booksearchapp.ui.adapter.BookSearchAdapter
+import com.tweety.booksearchapp.ui.adapter.BookSearchPagingAdapter
 import com.tweety.booksearchapp.ui.viewmodel.BookSearchViewModel
 
 class SearchFragment : Fragment() {
@@ -20,7 +21,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var bookSearchViewModel: BookSearchViewModel
-    private lateinit var bookSearchAdapter: BookSearchAdapter
+    private lateinit var bookSearchAdapter: BookSearchPagingAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -34,14 +35,13 @@ class SearchFragment : Fragment() {
         setupRecycleView()
         searchBooks()
 
-        bookSearchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
-            val books = response.documents
-            bookSearchAdapter.submitList(books)
+        collectLatestStateFlow(bookSearchViewModel.searchPagingResult) {
+            bookSearchAdapter.submitData(it)
         }
     }
 
     private fun setupRecycleView() {
-        bookSearchAdapter = BookSearchAdapter()
+        bookSearchAdapter = BookSearchPagingAdapter()
         binding.rvSearchResult.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -69,7 +69,8 @@ class SearchFragment : Fragment() {
                 text?.let {
                     val query = it.toString().trim()
                     if (query.isNotEmpty()) {
-                        bookSearchViewModel.searchBooks(query)
+                        bookSearchViewModel.searchBooksPaging(query)
+                        bookSearchViewModel.query = query
                     }
                 }
             }
