@@ -5,20 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.tweety.booksearchapp.common.collectLatestStateFlow
 import com.tweety.booksearchapp.databinding.FragmentFavoriteBinding
 import com.tweety.booksearchapp.ui.adapter.BookSearchAdapter
 import com.tweety.booksearchapp.ui.viewmodel.BookSearchViewModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
@@ -40,12 +36,8 @@ class FavoriteFragment : Fragment() {
         setupTouchHelper(view)
 
         // FavoriteFragment 라이프사이클과 Flow 구독시작 연동
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                bookSearchViewModel.favoriteBooks.collectLatest {
-                    bookSearchAdapter.submitList(it)
-                }
-            }
+        collectLatestStateFlow(bookSearchViewModel.favoriteBooks) {
+            bookSearchAdapter.submitList(it)
         }
 
     }
