@@ -1,10 +1,10 @@
 package com.tweety.booksearchapp.data.repository
 
-import androidx.lifecycle.LiveData
 import com.tweety.booksearchapp.data.common.RetrofitInstance.api
 import com.tweety.booksearchapp.data.db.AppDatabase
 import com.tweety.booksearchapp.data.model.Book
 import com.tweety.booksearchapp.data.model.SearchResponse
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 class BookSearchRepositoryImpl(private val db: AppDatabase) : BookSearchRepository {
@@ -23,7 +23,7 @@ class BookSearchRepositoryImpl(private val db: AppDatabase) : BookSearchReposito
         db.bookDao().deleteBook(book)
     }
 
-    override fun getFavoriteBooks(): LiveData<List<Book>> {
+    override fun getFavoriteBooks(): Flow<List<Book>> {
         return db.bookDao().getFavoriteBooks()
     }
 
