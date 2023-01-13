@@ -19,13 +19,15 @@ data class Book(
     val contents: String,
     @field:Json(name = "datetime")
     val datetime: String,
-    @field:Json(name = "isbn")
+
     @PrimaryKey(autoGenerate = false)
+    @field:Json(name = "isbn")
     val isbn: String,
     @field:Json(name = "price")
     val price: Int,
     @field:Json(name = "publisher")
     val publisher: String,
+
     @ColumnInfo(name = "sale_price")
     @field:Json(name = "sale_price")
     val salePrice: Int,

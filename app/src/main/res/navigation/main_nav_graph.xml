@@ -43,6 +43,6 @@
         tools:layout="@layout/fragment_book">
         <argument
             android:name="book"
-            app:argType="com.tweety.booksearchapp.model.Book" />
+            app:argType="com.tweety.booksearchapp.data.model.Book" />
     </fragment>
 </navigation>
