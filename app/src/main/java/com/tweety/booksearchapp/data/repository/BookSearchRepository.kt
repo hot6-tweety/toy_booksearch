@@ -1,5 +1,6 @@
 package com.tweety.booksearchapp.data.repository
 
+import androidx.paging.PagingData
 import com.tweety.booksearchapp.data.model.Book
 import com.tweety.booksearchapp.data.model.SearchResponse
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +25,9 @@ interface BookSearchRepository {
 
     // DataStore
     suspend fun saveSortMode(mode: String)
-    
+
     suspend fun getSortMode(): Flow<String>
+
+    // Paging
+    fun getFavoritePagingBooks(): Flow<PagingData<Book>>
 }

@@ -5,6 +5,10 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.tweety.booksearchapp.common.Constants.PAGING_SIZE
 import com.tweety.booksearchapp.common.Sort
 import com.tweety.booksearchapp.data.common.RetrofitInstance.api
 import com.tweety.booksearchapp.data.db.AppDatabase
@@ -65,5 +69,19 @@ class BookSearchRepositoryImpl(
             .map { prefs ->
                 prefs[SORT_MODE] ?: Sort.ACCURACY.value
             }
+    }
+
+    // Paging
+    override fun getFavoritePagingBooks(): Flow<PagingData<Book>> {
+        val pagingSourceFactory = { db.bookDao().getFavoritePagingBooks() }
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGING_SIZE,
+                enablePlaceholders = false,
+                maxSize = PAGING_SIZE * 3
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
     }
 }
