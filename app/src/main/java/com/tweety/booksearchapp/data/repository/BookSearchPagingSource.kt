@@ -3,12 +3,13 @@ package com.tweety.booksearchapp.data.repository
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.tweety.booksearchapp.common.Constants.PAGING_SIZE
-import com.tweety.booksearchapp.data.common.RetrofitInstance.api
+import com.tweety.booksearchapp.data.common.BookSearchApi
 import com.tweety.booksearchapp.data.model.Book
 import retrofit2.HttpException
 import java.io.IOException
 
 class BookSearchPagingSource(
+    private val api: BookSearchApi,
     private val query: String,
     private val sort: String
 ) : PagingSource<Int, Book>() {

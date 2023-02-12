@@ -1,4 +1,4 @@
-package com.tweety.booksearchapp.data.common
+package com.tweety.booksearchapp.data.db
 
 import androidx.room.TypeConverter
 import kotlinx.serialization.decodeFromString
